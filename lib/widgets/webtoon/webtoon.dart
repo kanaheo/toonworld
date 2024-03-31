@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:toonworld/widgets/screens/webtoon_home_screens.dart';
+import 'package:toonworld/widgets/screens/webtoon_home_screen.dart';
 
 class WebtoonApp extends StatelessWidget {
   const WebtoonApp({super.key});
