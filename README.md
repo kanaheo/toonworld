@@ -17,5 +17,6 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Chrome browser
 
-flutter run -d chrome --web-renderer html  
-For image network
+1. flutter pub add http
+2. flutter run -d chrome --web-renderer html  
+   (For image network)

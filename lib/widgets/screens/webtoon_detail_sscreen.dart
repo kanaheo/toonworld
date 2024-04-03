@@ -1,14 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:toonworld/models/webtoon_detail_model.dart';
+import 'package:toonworld/models/webtoon_episode_model.dart';
+import 'package:toonworld/services/api_service.dart';
 
-class WebtoonDetailScreen extends StatelessWidget {
+class WebtoonDetailScreen extends StatefulWidget {
   final String title, thumb, id;
+
   const WebtoonDetailScreen({
     super.key,
     required this.title,
     required this.thumb,
     required this.id,
   });
+
+  @override
+  State<WebtoonDetailScreen> createState() => _WebtoonDetailScreenState();
+}
+
+class _WebtoonDetailScreenState extends State<WebtoonDetailScreen> {
+  // widget의 의미는 위에 WebtoonDetailScreen <-이 widget와 같다
+  late Future<WebtoonDetailModel> webtoon;
+  late Future<List<WebtoonEpisodeModel>> episodes;
+
+  @override
+  void initState() {
+    super.initState();
+    webtoon = ApiService.getToonById(widget.id);
+    episodes = ApiService.getLatestEpisodesById(widget.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +39,7 @@ class WebtoonDetailScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         foregroundColor: Colors.green,
         title: Text(
-          title,
+          widget.title,
           style: const TextStyle(
             fontSize: 24,
           ),
@@ -34,7 +54,7 @@ class WebtoonDetailScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Hero(
-                tag: id,
+                tag: widget.id,
                 child: Container(
                   width: 250,
                   clipBehavior: Clip.hardEdge,
@@ -48,7 +68,7 @@ class WebtoonDetailScreen extends StatelessWidget {
                       )
                     ],
                   ),
-                  child: Image.network(thumb),
+                  child: Image.network(widget.thumb),
                 ),
               ),
             ],
